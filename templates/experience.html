@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Experience/Internship</h2>
+    <div class="card mb-3 shadow hover-effect">
+        <div class="card-body">
+            <h5 class="card-title">{{ data.internship.role }} at {{ data.internship.company }}</h5>
+            <p class="card-text"><small class="text-muted">{{ data.internship.duration }}</small></p>
+            <p class="card-text">{{ data.internship.description }}</p>
+        </div>
+    </div>
+{% endblock %}

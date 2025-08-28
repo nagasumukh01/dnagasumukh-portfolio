@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="text-center mb-5">
+        <img src="{{ url_for('static', filename='images/profile.png') }}" alt="Profile" class="rounded-circle img-fluid" width="150">  <!-- Add your photo to static/images -->
+        <h1 class="display-4">{{ data.name }}</h1>
+        <p class="lead">BTech in Computer Science and Engineering Student at Reva University</p>
+        <p>Email: {{ data.email }} | Phone: {{ data.phone }} | Location: {{ data.location }} | DOB: {{ data.dob }}</p>
+    </section>
+
+    <section id="skills">
+        <h2>Skills</h2>
+        {% for skill in data.skills %}
+            <div class="mb-3">
+                <label>{{ skill.name }}</label>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: {{ skill.level }}%;">{{ skill.level }}%</div>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+{% endblock %}

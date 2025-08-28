@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Awards & Certificates</h2>
+    {% for award in data.awards %}
+        <div class="card mb-3 shadow hover-effect">
+            <div class="card-body">
+                <h5 class="card-title">{{ award.title }}</h5>
+                <p class="card-text">{{ award.description }}</p>
+            </div>
+        </div>
+    {% endfor %}
+    {% for cert in data.certificates %}
+        <div class="card mb-3 shadow hover-effect">
+            <div class="card-body">
+                <h5 class="card-title">{{ cert.title }}</h5>
+                <p class="card-text">{{ cert.description }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

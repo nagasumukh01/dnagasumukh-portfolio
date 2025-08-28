@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Education</h2>
+    {% for edu in data.education %}
+        <div class="card mb-3 shadow hover-effect">
+            <div class="card-body">
+                <h5 class="card-title">{{ edu.degree }}</h5>
+                <p class="card-text">{{ edu.institution }}, {{ edu.location }}</p>
+                <p class="card-text"><small class="text-muted">{{ edu.duration }} | GPA/Score: {{ edu.gpa }}</small></p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
