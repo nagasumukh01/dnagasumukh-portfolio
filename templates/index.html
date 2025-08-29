@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <section class="text-center mb-5">
-        <img src="{{ url_for('static', filename='images/profile.png') }}" alt="Profile" class="rounded-circle img-fluid" width="150">  <!-- Add your photo to static/images -->
-        <h1 class="display-4">{{ data.name }}</h1>
+    <!-- Home Section -->
+    <section id="home" class="text-center mb-5 pt-5">
+        <img src="{{ url_for('static', filename='images/profile.png') }}" alt="Profile" class="rounded-circle img-fluid" width="150">
+        <h1 class="display-4 mt-3">{{ data.name }}</h1>
         <p class="lead">BTech in Computer Science and Engineering Student at Reva University</p>
         <p>Email: {{ data.email }} | Phone: {{ data.phone }} | Location: {{ data.location }} | DOB: {{ data.dob }}</p>
     </section>
 
-    <section id="skills">
+
+    <!-- Skills Section -->
+    <section id="skills" class="mb-5">
         <h2>Skills</h2>
         {% for skill in data.skills %}
             <div class="mb-3">
@@ -18,5 +21,133 @@
                 </div>
             </div>
         {% endfor %}
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="mb-5">
+        <h2>Education</h2>
+        {% for edu in data.education %}
+            <div class="card mb-3 shadow hover-effect">
+                <div class="card-body">
+                    <h5 class="card-title">{{ edu.degree }}</h5>
+                    <p class="card-text">{{ edu.institution }}, {{ edu.location }}</p>
+                    <p class="card-text"><small class="text-muted">{{ edu.duration }} | GPA/Score: {{ edu.gpa }}</small></p>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+
+    <!-- Experience/Internship Section -->
+    <section id="experience" class="mb-5">
+        <h2>Experience/Internship</h2>
+        <div class="card mb-3 shadow hover-effect">
+            <div class="card-body">
+                <h5 class="card-title">{{ data.internship.role }} at {{ data.internship.company }}</h5>
+                <p class="card-text"><small class="text-muted">{{ data.internship.duration }}</small></p>
+                <p class="card-text">{{ data.internship.description }}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="mb-5">
+        <h2>Courses</h2>
+        <ul class="list-group">
+            {% for course in data.courses %}
+                <li class="list-group-item">{{ course }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="mb-5">
+        <h2>Projects</h2>
+        <div class="row">
+            <!-- Placeholder cards: Duplicate and edit for each project -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow hover-effect">
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Project 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Project Title</h5>
+                        <p class="card-text">Description: Tech stack, what it does.</p>
+                        <a href="#" class="btn btn-primary">View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more <div class="col-md-4 mb-4"> blocks here for new projects -->
+        </div>
+    </section>
+
+    <!-- Awards & Certificates Section -->
+    <section id="awards" class="mb-5">
+        <h2>Awards & Certificates</h2>
+        <div class="row">
+            {% for item in data.awards + data.certificates %}
+            <div class="col-md-6 mb-4">
+                <div class="card shadow hover-effect h-100">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        {% if item.image %}
+                        <img src="{{ url_for('static', filename='images/' ~ item.image) }}" alt="{{ item.title }} certificate" class="img-fluid mb-3" style="max-height:250px; object-fit:contain;">
+                        {% endif %}
+                        <p class="card-text">{{ item.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="mb-5">
+        <h2>Contact Me</h2>
+        <form method="POST" action="#contact">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+
+        {% if success %}
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="successModalLabel">Success!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center" style="font-size: 1.2rem; color: #333;">
+                        Thank you!😊 Your message has been sent. Naga will get back to you soon.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success text-white" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(function() {
+                    var myModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    myModal.show();
+                }, 100);
+            });
+        </script>
+        {% endif %}
+
+        <!-- Social Icons at the end -->
+        <div class="mt-4 text-center">
+            <a href="{{ data.linkedin }}" target="_blank" class="btn btn-outline-primary mx-2"><i class="fab fa-linkedin fa-2x"></i></a>
+            <a href="{{ data.github }}" target="_blank" class="btn btn-outline-dark mx-2"><i class="fab fa-github fa-2x"></i></a>
+        </div>
     </section>
 {% endblock %}

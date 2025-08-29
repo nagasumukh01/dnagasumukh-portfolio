@@ -29,7 +29,7 @@ resume_data = {
             "institution": "Reva University",
             "duration": "09/2023 – Present",
             "location": "Bangalore, Karnataka, India",
-            "gpa": "7.9"
+            "gpa": "8.14"
         },
         {
             "degree": "PUC",
@@ -43,7 +43,7 @@ resume_data = {
             "institution": "Vasavi Education Society",
             "duration": "",
             "location": "Chikmagalur, India",
-            "gpa": "87"
+            "gpa": "87.68"
         }
     ],
     "internship": {
@@ -63,13 +63,15 @@ resume_data = {
     "awards": [
         {
             "title": "UI/UX Design Challenge, IIT Jammu, Anhad'25",
-            "description": "As a team member of 'ERROR FUSION', secured winner position in Anhad'25."
+            "description": "As a team member of 'ERROR FUSION', secured winner position in Anhad'25.",
+            "image": "IIT_jammu_cert.png"
         }
     ],
     "certificates": [
         {
             "title": "NER Hackathon",
-            "description": "Actively participated at Pan India - NER Tech Hackathon 2.0 at Marriott, Bangalore and secured top 14 among 600+ teams."
+            "description": "Actively participated at Pan India - NER Tech Hackathon 2.0 at Marriott, Bangalore and secured top 14 among 600+ teams.",
+            "image": "NER_cert.png"
         }
     ],
     "skills": [  # For animated bars; add more as needed
@@ -82,45 +84,22 @@ resume_data = {
     # Projects will be added in projects.html template later
 }
 
-@app.route('/')
+
+# Single route for all content (single-page scroll)
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html', data=resume_data)
-
-@app.route('/education')
-def education():
-    return render_template('education.html', data=resume_data)
-
-@app.route('/experience')
-def experience():
-    return render_template('experience.html', data=resume_data)
-
-@app.route('/courses')
-def courses():
-    return render_template('courses.html', data=resume_data)
-
-@app.route('/awards')
-def awards():
-    return render_template('awards.html', data=resume_data)
-
-@app.route('/projects')
-def projects():
-    return render_template('projects.html', data=resume_data)
-
-@app.route('/contact', methods=['GET', 'POST'])
-def contact():
+    success = False
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
         message = request.form['message']
-        
         # Send email
         msg = Message('New Contact Form Submission',
-                      recipients=['nagasumukh01@gmail.com'])  # Your Gmail address
+                      recipients=['nagasumukh01@gmail.com'])
         msg.body = f"Name: {name}\nEmail: {email}\nMessage: {message}\nTimestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         mail.send(msg)
-        
-        return redirect(url_for('contact', success=True))  # Redirect to contact page with success parameter
-    return render_template('contact.html', data=resume_data, success=request.args.get('success') == 'True')
+        success = True
+    return render_template('index.html', data=resume_data, success=success)
 
 if __name__ == '__main__':
     app.run(debug=True)

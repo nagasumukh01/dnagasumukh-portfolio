@@ -1,10 +1,34 @@
-// Dark/Light Mode Toggle
+
+// Set initial theme based on system preference
+function setInitialTheme() {
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    if (prefersLight) {
+        document.body.classList.add('light-mode');
+        toggleIcon('sun');
+    } else {
+        document.body.classList.remove('light-mode');
+        toggleIcon('moon');
+    }
+}
+
+function toggleIcon(mode) {
+    const icon = toggle.querySelector('i');
+    if (mode === 'sun') {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+    } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+    }
+}
+
 const toggle = document.getElementById('mode-toggle');
+setInitialTheme();
+
 toggle.addEventListener('click', () => {
     document.body.classList.toggle('light-mode');
-    const icon = toggle.querySelector('i');
-    icon.classList.toggle('fa-moon');
-    icon.classList.toggle('fa-sun');
+    const isLight = document.body.classList.contains('light-mode');
+    toggleIcon(isLight ? 'sun' : 'moon');
 });
 
 // Initialize particles.js (techie background particles)
