@@ -4,15 +4,16 @@
     <!-- Home Section -->
     <section id="home" class="text-center mb-5 pt-5">
         <img src="{{ url_for('static', filename='images/profile.png') }}" alt="Profile" class="rounded-circle img-fluid" width="150">
-        <h1 class="display-4 mt-3">{{ data.name }}</h1>
-        <p class="lead">BTech in Computer Science and Engineering Student at Reva University</p>
-        <p>Email: {{ data.email }} | Phone: {{ data.phone }} | Location: {{ data.location }} | DOB: {{ data.dob }}</p>
+    <h1 class="display-4 mt-3 name-heading">{{ data.name }}</h1>
+    <div class="tagline mb-2" style="font-size:1.2rem; color:#2563eb; font-weight:500;">Crafting Innovative Solutions with Code and Creativity</div>
+    <p class="bio-blurb">BTech in Computer Science and Engineering Student at Reva University | Aspiring Software Engineer</p>
+    <p class="lead">Email: {{ data.email }} | Phone: {{ data.phone }} | Location: {{ data.location }} | DOB: {{ data.dob }}</p>
     </section>
 
 
     <!-- Skills Section -->
     <section id="skills" class="mb-5">
-        <h2>Skills</h2>
+    <h2 class="section-title"><i class="fa-solid fa-brain section-icon" aria-label="Skills"></i> Skills</h2>
         {% for skill in data.skills %}
             <div class="mb-3">
                 <label>{{ skill.name }}</label>
@@ -25,7 +26,7 @@
 
     <!-- Education Section -->
     <section id="education" class="mb-5">
-        <h2>Education</h2>
+    <h2 class="section-title"><i class="fa-solid fa-graduation-cap section-icon" aria-label="Education"></i> Education</h2>
         {% for edu in data.education %}
             <div class="card mb-3 shadow hover-effect">
                 <div class="card-body">
@@ -39,7 +40,7 @@
 
     <!-- Experience/Internship Section -->
     <section id="experience" class="mb-5">
-        <h2>Experience/Internship</h2>
+    <h2 class="section-title"><i class="fa-solid fa-briefcase section-icon" aria-label="Experience"></i> Experience/Internship</h2>
         <div class="card mb-3 shadow hover-effect">
             <div class="card-body">
                 <h5 class="card-title">{{ data.internship.role }} at {{ data.internship.company }}</h5>
@@ -51,22 +52,29 @@
 
     <!-- Courses Section -->
     <section id="courses" class="mb-5">
-        <h2>Courses</h2>
-        <ul class="list-group">
+    <h2 class="section-title"><i class="fa-solid fa-book section-icon" aria-label="Courses"></i> Courses</h2>
+        <div class="row g-3">
             {% for course in data.courses %}
-                <li class="list-group-item">{{ course }}</li>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0 course-card">
+                    <div class="card-body d-flex align-items-center">
+                        <i class="fa-solid fa-circle-check text-primary me-3" aria-hidden="true" style="font-size:1.3rem;"></i>
+                        <span class="fw-semibold">{{ course }}</span>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
     </section>
 
     <!-- Projects Section -->
     <section id="projects" class="mb-5">
-        <h2>Projects</h2>
+    <h2 class="section-title"><i class="fa-solid fa-code section-icon" aria-label="Projects"></i> Projects</h2>
         <div class="row">
             <!-- Placeholder cards: Duplicate and edit for each project -->
             <div class="col-md-4 mb-4">
                 <div class="card shadow hover-effect">
-                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Project 1">
+                    <img src="{{ url_for('static', filename='images/profile.png') }}" class="card-img-top" alt="Project 1">
                     <div class="card-body">
                         <h5 class="card-title">Project Title</h5>
                         <p class="card-text">Description: Tech stack, what it does.</p>
@@ -80,7 +88,7 @@
 
     <!-- Awards & Certificates Section -->
     <section id="awards" class="mb-5">
-        <h2>Awards & Certificates</h2>
+    <h2 class="section-title"><i class="fa-solid fa-trophy section-icon" aria-label="Awards"></i> Awards & Certificates</h2>
         <div class="row">
             {% for item in data.awards + data.certificates %}
             <div class="col-md-6 mb-4">
@@ -100,7 +108,7 @@
 
     <!-- Contact Section -->
     <section id="contact" class="mb-5">
-        <h2>Contact Me</h2>
+    <h2 class="section-title"><i class="fa-solid fa-envelope section-icon" aria-label="Contact"></i> Contact Me</h2>
         <form method="POST" action="#contact">
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
